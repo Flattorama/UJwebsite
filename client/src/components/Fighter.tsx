@@ -1,3 +1,5 @@
+import mattTaubImage from '@assets/Matt Taub -  Website Image_1764358561652.png';
+
 export default function Fighter() {
   const trackRecord = [
     'Secured arrests of Razaali Awan Bahudar and multiple threat actors.',
@@ -15,9 +17,9 @@ export default function Fighter() {
       <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-auto">
         <div className="absolute inset-0 bg-gray-800">
           <div 
-            className="w-full h-full bg-cover bg-center grayscale contrast-125"
+            className="w-full h-full bg-cover bg-center bg-top"
             style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2000&auto=format&fit=crop')"
+              backgroundImage: `url(${mattTaubImage})`
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
