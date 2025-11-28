@@ -1,4 +1,4 @@
-import mattTaubImage from '@assets/Matt Taub -  Website Image_1764358561652.png';
+import mattTaubImage from '@assets/Matt Taub -  Website Image (1)_1764358810423.png';
 
 export default function Fighter() {
   const trackRecord = [
