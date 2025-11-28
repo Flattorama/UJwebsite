@@ -16,11 +16,10 @@ export default function Fighter() {
     >
       <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-auto">
         <div className="absolute inset-0 bg-gray-800">
-          <div 
-            className="w-full h-full bg-cover bg-center bg-top"
-            style={{
-              backgroundImage: `url(${mattTaubImage})`
-            }}
+          <img 
+            src={mattTaubImage}
+            alt="Matthew Taub"
+            className="w-full h-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
         </div>
