@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import ujLogo from '@assets/uj-logo.svg';
 
 const navLinks = [
   { name: 'MISSION', href: '#mission' },
@@ -42,19 +43,18 @@ export default function Navigation() {
           <div className="flex-shrink-0 flex items-center">
             <a 
               href="#" 
-              className="flex items-center gap-2 group"
+              className="flex items-center group"
               data-testid="link-logo"
               onClick={(e) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
             >
-              <div className="w-10 h-10 bg-white text-black flex items-center justify-center font-bold text-xl group-hover:bg-red-600 group-hover:text-white transition-colors">
-                UJ
-              </div>
-              <span className="font-black tracking-tighter text-xl text-white hidden sm:inline">
-                UNAPOLOGETICALLY JEWISH
-              </span>
+              <img 
+                src={ujLogo} 
+                alt="Unapologetically Jewish" 
+                className="w-12 h-12 invert group-hover:opacity-80 transition-opacity"
+              />
             </a>
           </div>
 

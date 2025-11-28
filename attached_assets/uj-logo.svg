@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Curved text paths -->
+  <defs>
+    <path id="topArc" d="M 18,100 A 82,82 0 0,1 182,100" fill="none"/>
+    <path id="bottomArc" d="M 40,135 A 62,62 0 0,0 160,135" fill="none"/>
+  </defs>
+
+  <!-- UNAPOLOGETICALLY (top curved) -->
+  <text font-family="Arial Black, Helvetica, sans-serif" font-size="14" font-weight="900" fill="#000" letter-spacing="1.5">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">UNAPOLOGETICALLY</textPath>
+  </text>
+
+  <!-- Dots on sides -->
+  <circle cx="22" cy="100" r="3.5" fill="#000"/>
+  <circle cx="178" cy="100" r="3.5" fill="#000"/>
+
+  <!-- Star of David - outline style with proper overlapping triangles -->
+  <g fill="none" stroke="#000" stroke-width="6" stroke-linejoin="miter">
+    <!-- Upward pointing triangle -->
+    <polygon points="100,45 55,120 145,120"/>
+    <!-- Downward pointing triangle -->
+    <polygon points="100,150 55,75 145,75"/>
+  </g>
+
+  <!-- JEWISH (bottom curved, right-side up) -->
+  <text font-family="Arial Black, Helvetica, sans-serif" font-size="18" font-weight="900" fill="#000" letter-spacing="4">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">JEWISH</textPath>
+  </text>
+</svg>

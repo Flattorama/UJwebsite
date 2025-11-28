@@ -1,4 +1,5 @@
 import { Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
+import ujLogo from '@assets/uj-logo.svg';
 
 const socialLinks = [
   { icon: Twitter, label: 'Twitter', href: '#' },
@@ -33,9 +34,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-white text-black flex items-center justify-center font-bold text-2xl">
-                UJ
-              </div>
+              <img 
+                src={ujLogo} 
+                alt="Unapologetically Jewish" 
+                className="w-16 h-16 invert"
+              />
               <span className="font-black text-xl sm:text-2xl tracking-tighter">
                 UNAPOLOGETICALLY JEWISH
               </span>
