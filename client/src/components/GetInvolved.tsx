@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useMutation } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
 
 export default function GetInvolved() {
   const { toast } = useToast();
@@ -9,27 +11,79 @@ export default function GetInvolved() {
   const [volunteerEmail, setVolunteerEmail] = useState('');
   const [selectedRole, setSelectedRole] = useState('');
 
+  const newsletterMutation = useMutation({
+    mutationFn: async (data: { email: string }) => {
+      const response = await apiRequest('POST', '/api/newsletter/subscribe', data);
+      return response.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: 'Subscribed!',
+        description: data.message || 'You will receive weekly updates on our fight.',
+      });
+      setEmail('');
+    },
+    onError: async (error: any) => {
+      let message = 'Failed to subscribe. Please try again.';
+      if (error.response) {
+        try {
+          const data = await error.response.json();
+          message = data.message || message;
+        } catch {}
+      }
+      toast({
+        title: 'Error',
+        description: message,
+        variant: 'destructive',
+      });
+    },
+  });
+
+  const volunteerMutation = useMutation({
+    mutationFn: async (data: { name: string; email: string; role: string }) => {
+      const response = await apiRequest('POST', '/api/volunteer/apply', data);
+      return response.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: 'Application Received!',
+        description: data.message || "We'll be in touch about volunteer opportunities.",
+      });
+      setName('');
+      setVolunteerEmail('');
+      setSelectedRole('');
+    },
+    onError: async (error: any) => {
+      let message = 'Failed to submit application. Please try again.';
+      if (error.response) {
+        try {
+          const data = await error.response.json();
+          message = data.message || message;
+        } catch {}
+      }
+      toast({
+        title: 'Error',
+        description: message,
+        variant: 'destructive',
+      });
+    },
+  });
+
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      toast({
-        title: 'Subscribed!',
-        description: 'You will receive weekly updates on our fight.',
-      });
-      setEmail('');
+      newsletterMutation.mutate({ email });
     }
   };
 
   const handleVolunteerSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name && volunteerEmail && selectedRole) {
-      toast({
-        title: 'Application Received!',
-        description: "We'll be in touch about volunteer opportunities.",
+      volunteerMutation.mutate({ 
+        name, 
+        email: volunteerEmail, 
+        role: selectedRole 
       });
-      setName('');
-      setVolunteerEmail('');
-      setSelectedRole('');
     }
   };
 
@@ -72,14 +126,16 @@ export default function GetInvolved() {
                   className="flex-1 bg-black border-2 border-white px-4 py-3 font-mono text-white placeholder-gray-500 focus:outline-none focus:border-red-600"
                   data-testid="input-newsletter-email"
                   required
+                  disabled={newsletterMutation.isPending}
                 />
                 <button 
                   type="submit"
-                  className="bg-white text-black px-6 py-3 font-black hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center gap-2"
+                  className="bg-white text-black px-6 py-3 font-black hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                   data-testid="button-newsletter-submit"
+                  disabled={newsletterMutation.isPending}
                 >
-                  SUBSCRIBE
-                  <ArrowRight size={18} />
+                  {newsletterMutation.isPending ? 'SUBSCRIBING...' : 'SUBSCRIBE'}
+                  {!newsletterMutation.isPending && <ArrowRight size={18} />}
                 </button>
               </form>
             </div>
@@ -98,6 +154,7 @@ export default function GetInvolved() {
                   className="w-full bg-black border-2 border-white px-4 py-3 font-mono text-white placeholder-gray-500 focus:outline-none focus:border-red-600"
                   data-testid="input-volunteer-name"
                   required
+                  disabled={volunteerMutation.isPending}
                 />
                 <input
                   type="email"
@@ -107,13 +164,15 @@ export default function GetInvolved() {
                   className="w-full bg-black border-2 border-white px-4 py-3 font-mono text-white placeholder-gray-500 focus:outline-none focus:border-red-600"
                   data-testid="input-volunteer-email"
                   required
+                  disabled={volunteerMutation.isPending}
                 />
                 <select
                   value={selectedRole}
                   onChange={(e) => setSelectedRole(e.target.value)}
-                  className="w-full bg-black border-2 border-white px-4 py-3 font-mono text-white focus:outline-none focus:border-red-600 appearance-none cursor-pointer"
+                  className="w-full bg-black border-2 border-white px-4 py-3 font-mono text-white focus:outline-none focus:border-red-600 appearance-none cursor-pointer disabled:opacity-50"
                   data-testid="select-volunteer-role"
                   required
+                  disabled={volunteerMutation.isPending}
                 >
                   <option value="" disabled>Select your interest</option>
                   {roles.map((role) => (
@@ -122,10 +181,11 @@ export default function GetInvolved() {
                 </select>
                 <button 
                   type="submit"
-                  className="w-full bg-red-600 text-white py-4 font-black text-lg hover:bg-white hover:text-black transition-colors"
+                  className="w-full bg-red-600 text-white py-4 font-black text-lg hover:bg-white hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   data-testid="button-volunteer-submit"
+                  disabled={volunteerMutation.isPending}
                 >
-                  JOIN THE MOVEMENT
+                  {volunteerMutation.isPending ? 'SUBMITTING...' : 'JOIN THE MOVEMENT'}
                 </button>
               </form>
             </div>
@@ -149,7 +209,7 @@ export default function GetInvolved() {
                     onClick={() => {
                       toast({
                         title: `${amount} Selected`,
-                        description: 'Redirecting to payment...',
+                        description: 'Donation processing coming soon!',
                       });
                     }}
                   >
@@ -163,7 +223,7 @@ export default function GetInvolved() {
                 onClick={() => {
                   toast({
                     title: 'Custom Donation',
-                    description: 'Opening donation form...',
+                    description: 'Donation processing coming soon!',
                   });
                 }}
               >
