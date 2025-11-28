@@ -23,7 +23,7 @@ export default function Hero() {
         <div className="absolute inset-0 bg-black/60 mix-blend-multiply" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center pt-20 md:pt-24">
         <h1 
           className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white leading-none tracking-tighter mb-6 select-none uppercase"
           data-testid="text-hero-heading"
