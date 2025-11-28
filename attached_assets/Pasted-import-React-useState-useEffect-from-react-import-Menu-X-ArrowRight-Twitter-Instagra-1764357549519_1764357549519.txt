@@ -1,0 +1,576 @@
+import React, { useState, useEffect } from 'react';
+import { Menu, X, ArrowRight, Twitter, Instagram, Linkedin, Youtube, ExternalLink, Shield, Scale, Mic, Users, Megaphone, HardHat, ChevronRight } from 'lucide-react';
+
+// --- Components ---
+
+const Navigation = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'MISSION', href: '#mission' },
+    { name: 'THE FIGHTER', href: '#fighter' },
+    { name: 'WHAT WE DO', href: '#pillars' },
+    { name: 'MEDIA', href: '#media' },
+    { name: 'MERCH', href: '#merch' },
+    { name: 'GET INVOLVED', href: '#get-involved' },
+  ];
+
+  return (
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black border-b border-white py-2' : 'bg-transparent py-4'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center">
+          {/* Logo Area */}
+          <div className="flex-shrink-0 flex items-center">
+             <a href="#" className="flex items-center gap-2 group">
+                <div className="w-10 h-10 bg-white text-black flex items-center justify-center font-bold text-xl group-hover:bg-red-600 transition-colors">
+                    UJ
+                </div>
+                <span className={`font-black tracking-tighter text-xl ${scrolled ? 'text-white' : 'text-white mix-blend-difference'}`}>
+                    UNAPOLOGETICALLY JEWISH
+                </span>
+             </a>
+          </div>
+
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-sm font-mono font-bold text-white hover:text-red-500 transition-colors tracking-widest"
+              >
+                {link.name}
+              </a>
+            ))}
+            <a
+                href="#get-involved"
+                className="bg-white text-black px-6 py-2 font-black font-mono hover:bg-red-600 hover:text-white transition-all transform hover:-translate-y-1 border-2 border-white"
+            >
+                DONATE
+            </a>
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-white hover:text-red-500 focus:outline-none"
+            >
+              {isOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-black border-t border-gray-800 absolute w-full h-screen">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center justify-center h-full gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="text-3xl font-black text-white hover:text-red-600 tracking-tighter uppercase"
+              >
+                {link.name}
+              </a>
+            ))}
+             <a
+                href="#get-involved"
+                onClick={() => setIsOpen(false)}
+                className="bg-red-600 text-white px-8 py-4 font-black text-xl hover:bg-white hover:text-black transition-colors"
+            >
+                DONATE NOW
+            </a>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+const Hero = () => {
+  return (
+    <section className="relative h-screen flex items-center justify-center bg-black overflow-hidden">
+      {/* Gritty Overlay Effect */}
+      <div className="absolute inset-0 z-0 opacity-40">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1555848962-6e79363ec58f?q=80&w=2833&auto=format&fit=crop')] bg-cover bg-center grayscale contrast-125 brightness-50"></div>
+        <div className="absolute inset-0 bg-black/60 mix-blend-multiply"></div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+        <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-none tracking-tighter mb-6 select-none uppercase">
+          We Don't Ask<br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">Permission</span><br />
+          To Exist.
+        </h1>
+        <p className="max-w-2xl text-lg md:text-xl text-gray-300 font-mono mb-10 tracking-wide border-l-4 border-red-600 pl-4 text-left">
+          While others build for tomorrow, we fight for today. <br/>
+          No apologies. No compromise. Just action.
+        </p>
+        <a
+          href="#get-involved"
+          className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-black text-black transition-all duration-200 bg-white font-mono hover:bg-red-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-white border-4 border-white"
+        >
+          <span>TAKE ACTION NOW</span>
+          <ChevronRight className="ml-2 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+        </a>
+      </div>
+      
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="w-1 h-16 bg-gradient-to-b from-white to-transparent"></div>
+      </div>
+    </section>
+  );
+};
+
+const Mission = () => {
+  return (
+    <section id="mission" className="bg-white py-24 md:py-32 relative overflow-hidden">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <h2 className="text-5xl md:text-7xl font-black text-black mb-12 tracking-tighter uppercase">
+          Mission & Vision
+        </h2>
+        
+        <div className="space-y-12">
+            <div className="p-8 border-4 border-black shadow-[10px_10px_0px_0px_rgba(0,0,0,1)]">
+                <h3 className="text-2xl font-black bg-black text-white inline-block px-4 py-1 mb-6 -rotate-1">OUR MISSION</h3>
+                <p className="text-xl md:text-3xl font-medium text-black leading-tight">
+                We empower Jews to stand proud, speak boldly, and live safely. <span className="font-black">Unapologetically Jewish</span> combats antisemitism through grassroots organizing, legal advocacy, and direct action — building a Canada where Jewish identity is celebrated, not silenced.
+                </p>
+            </div>
+
+            <div className="relative">
+                <div className="absolute -left-12 top-0 text-[10rem] leading-none font-black text-gray-100 select-none z-0">?</div>
+                <h3 className="text-2xl font-black text-black mb-4 relative z-10 text-left border-b-4 border-black inline-block">THE VISION</h3>
+                <p className="text-lg md:text-2xl font-mono text-gray-800 text-left relative z-10">
+                A Canada where Jews live without fear. Where our heritage is honored without shame. Where standing up for Jewish lives isn't courage — <span className="bg-black text-white px-2">it's just being who we are.</span>
+                </p>
+            </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Fighter = () => {
+  return (
+    <section id="fighter" className="flex flex-col md:flex-row min-h-screen bg-black text-white">
+      {/* Image Side */}
+      <div className="w-full md:w-1/2 relative min-h-[50vh] md:min-h-auto">
+        <div className="absolute inset-0 bg-gray-800">
+             {/* Placeholder for Matthew Taub Headshot */}
+             <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center grayscale contrast-125"></div>
+             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+        </div>
+        <div className="absolute bottom-8 left-8">
+            <h3 className="text-4xl font-black uppercase tracking-tighter border-l-8 border-red-600 pl-4">Matthew Taub</h3>
+            <p className="text-gray-300 font-mono mt-2">The Fighter.</p>
+        </div>
+      </div>
+
+      {/* Content Side */}
+      <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/20">
+        <h2 className="text-4xl md:text-6xl font-black mb-8 uppercase tracking-tighter text-red-600">
+          Meet The Fighter
+        </h2>
+        
+        <div className="prose prose-invert prose-lg mb-10">
+          <p className="font-mono text-xl leading-relaxed">
+            Matthew Taub doesn't wait for permission. When Toronto Police failed to act, he got antisemites arrested. When media ignored Jewish voices, he forced them to listen. When politicians looked away, he showed up at their offices.
+          </p>
+        </div>
+
+        <div className="space-y-6 bg-white/5 p-6 border border-white/10">
+            <h4 className="text-xl font-bold border-b border-gray-600 pb-2 mb-4">THE TRACK RECORD</h4>
+            <ul className="space-y-4 font-mono text-sm md:text-base">
+                <li className="flex items-start">
+                    <span className="text-red-500 mr-3">■</span>
+                    <span>Secured arrests of Razaali Awan Bahudar and multiple threat actors.</span>
+                </li>
+                <li className="flex items-start">
+                    <span className="text-red-500 mr-3">■</span>
+                    <span>Exposed officers with extremist connections, triggering internal investigations.</span>
+                </li>
+                <li className="flex items-start">
+                    <span className="text-red-500 mr-3">■</span>
+                    <span>Forced Toronto Police to implement new social media protocols.</span>
+                </li>
+                <li className="flex items-start">
+                    <span className="text-red-500 mr-3">■</span>
+                    <span>Built direct access to federal ministers and provincial leadership.</span>
+                </li>
+            </ul>
+        </div>
+        
+        <p className="mt-8 text-2xl font-black italic">
+            "This isn't another committee. This is action."
+        </p>
+      </div>
+    </section>
+  );
+};
+
+const Pillars = () => {
+    const pillars = [
+        {
+            icon: <Scale className="w-12 h-12" />,
+            title: "LEGISLATIVE ACTION",
+            desc: "We don't wait in lobbies. We get in rooms. Monthly meetings with MPs, motions, and policy briefings that move the needle."
+        },
+        {
+            icon: <Shield className="w-12 h-12" />,
+            title: "LAW ENFORCEMENT & LEGAL",
+            desc: "Collaboration first. Accountability always. From hate crime training to Charter challenges — ensuring Jewish safety isn't negotiable."
+        },
+        {
+            icon: <Mic className="w-12 h-12" />,
+            title: "MEDIA RELATIONS",
+            desc: "We don't react to narratives. We create them. When media gets it wrong, we correct it. When they ignore us, we become impossible to ignore."
+        },
+        {
+            icon: <Megaphone className="w-12 h-12" />,
+            title: "SOCIAL MEDIA",
+            desc: "Making Jewish pride go viral. Daily content that counters lies with truth. Rapid-response to breaking incidents."
+        },
+        {
+            icon: <Users className="w-12 h-12" />,
+            title: "ADVOCATE BUILDING",
+            desc: "Training fighters, not victims. Creating a network of trained advocates who know how to show up, speak up, and never back down."
+        },
+        {
+            icon: <HardHat className="w-12 h-12" />,
+            title: "LABOUR & 'JEW 311'",
+            desc: "No incident goes unanswered. Our intake system documents antisemitism in workplaces, connecting victims to legal support."
+        }
+    ];
+
+  return (
+    <section id="pillars" className="py-24 bg-zinc-900 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-5xl md:text-7xl font-black mb-16 text-center tracking-tighter">
+          SIX PILLARS OF <span className="text-red-600">ACTION</span>
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-4 border-white">
+            {pillars.map((pillar, index) => (
+                <div key={index} className="group relative p-10 border border-white/20 bg-black hover:bg-white transition-colors duration-300">
+                    <div className="mb-6 text-white group-hover:text-black transition-colors">
+                        {pillar.icon}
+                    </div>
+                    <h3 className="text-2xl font-black mb-4 uppercase text-white group-hover:text-black transition-colors">{pillar.title}</h3>
+                    <p className="font-mono text-gray-400 group-hover:text-black transition-colors">{pillar.desc}</p>
+                    <div className="absolute top-4 right-4 text-4xl font-black text-white/10 group-hover:text-black/10">
+                        0{index + 1}
+                    </div>
+                </div>
+            ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Partners = () => {
+  return (
+    <section id="partners" className="py-12 bg-red-600 overflow-hidden">
+      <div className="relative flex overflow-x-hidden">
+        <div className="animate-marquee whitespace-nowrap flex items-center space-x-12 md:space-x-24">
+            <span className="text-4xl md:text-6xl font-black text-white px-4">STRATEGIC ALLIANCES THAT DELIVER</span>
+            <span className="text-4xl md:text-6xl font-black text-black px-4">WE DON'T WORK ALONE</span>
+            <span className="text-4xl md:text-6xl font-black text-white px-4">GOVERNMENT RELATIONS</span>
+            <span className="text-4xl md:text-6xl font-black text-black px-4">LEGAL EXPERTS</span>
+            <span className="text-4xl md:text-6xl font-black text-white px-4">ALLIED ORGANIZATIONS</span>
+            <span className="text-4xl md:text-6xl font-black text-black px-4">STRATEGIC ALLIANCES THAT DELIVER</span>
+             <span className="text-4xl md:text-6xl font-black text-white px-4">WE DON'T WORK ALONE</span>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const MediaMerch = () => {
+    return (
+        <section id="media" className="bg-white">
+            {/* Media Section */}
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+                <div className="flex flex-col md:flex-row gap-12 items-start">
+                    <div className="w-full md:w-1/3">
+                        <h2 className="text-5xl font-black leading-none mb-8">MAKING HEADLINES.<br/>CHANGING MINDS.</h2>
+                        <div className="space-y-4 mb-8">
+                             <a href="#" className="flex items-center space-x-4 p-4 border-2 border-black hover:bg-black hover:text-white transition-colors group">
+                                <Twitter className="w-6 h-6" />
+                                <span className="font-mono font-bold">@UnapologeticallyJewish</span>
+                                <ArrowRight className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                             </a>
+                             <a href="#" className="flex items-center space-x-4 p-4 border-2 border-black hover:bg-black hover:text-white transition-colors group">
+                                <Instagram className="w-6 h-6" />
+                                <span className="font-mono font-bold">@UnapologeticallyJewish</span>
+                                <ArrowRight className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                             </a>
+                             <a href="#" className="flex items-center space-x-4 p-4 border-2 border-black hover:bg-black hover:text-white transition-colors group">
+                                <Youtube className="w-6 h-6" />
+                                <span className="font-mono font-bold">Training & Interviews</span>
+                                <ArrowRight className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                             </a>
+                        </div>
+                        <button className="bg-black text-white px-8 py-3 font-bold uppercase tracking-wider hover:bg-red-600 transition-colors w-full">
+                            View Press Kit
+                        </button>
+                    </div>
+                    
+                    <div className="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {/* Mock News Cards */}
+                        <div className="bg-gray-100 p-6 border-b-4 border-black">
+                            <div className="text-xs font-bold text-red-600 mb-2">LATEST OP-ED</div>
+                            <h4 className="text-xl font-bold mb-4">"Why Silence is Complicity in 2025"</h4>
+                            <p className="text-sm font-mono text-gray-600 mb-4">National Post • Nov 22, 2025</p>
+                            <a href="#" className="text-sm font-bold underline decoration-2">Read Article</a>
+                        </div>
+                         <div className="bg-gray-100 p-6 border-b-4 border-black">
+                            <div className="text-xs font-bold text-red-600 mb-2">IN THE NEWS</div>
+                            <h4 className="text-xl font-bold mb-4">Taub confronts City Council on Hate Speech bylaws</h4>
+                            <p className="text-sm font-mono text-gray-600 mb-4">CBC News • Oct 15, 2025</p>
+                            <a href="#" className="text-sm font-bold underline decoration-2">Watch Clip</a>
+                        </div>
+                        <div className="bg-black text-white p-6 md:col-span-2 flex items-center justify-between">
+                             <div>
+                                <h4 className="text-2xl font-black">THE DAILY BRIEF</h4>
+                                <p className="font-mono text-gray-400">Get rapid response updates.</p>
+                             </div>
+                             <div className="h-12 w-12 bg-white rounded-full flex items-center justify-center text-black">
+                                <ExternalLink size={20} />
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Merch Section Divider */}
+            <div className="bg-black text-white py-4 font-mono text-center uppercase tracking-[0.2em] border-y border-white">
+                /// Every purchase funds the fight ///
+            </div>
+
+            {/* Merch Section */}
+            <section id="merch" className="relative py-24 bg-gray-100">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 className="text-5xl md:text-7xl font-black mb-4 uppercase">Armor for the Unapologetic</h2>
+                    <p className="text-xl font-mono mb-12 max-w-2xl mx-auto">Every logo worn is a declaration: We're here. We're proud. We're not going anywhere.</p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {/* Merch Mockups */}
+                        <div className="group relative cursor-pointer">
+                            <div className="aspect-[3/4] bg-gray-300 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1576871337622-98d48d1cf531?q=80&w=2787&auto=format&fit=crop" alt="Hoodie" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                            </div>
+                            <div className="bg-black text-white p-4 absolute bottom-0 w-full translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <div className="flex justify-between items-center">
+                                    <span className="font-bold">STREET FIGHTER HOODIE</span>
+                                    <span className="font-mono">$65</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="group relative cursor-pointer">
+                            <div className="aspect-[3/4] bg-gray-300 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2000&auto=format&fit=crop" alt="T-Shirt" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                            </div>
+                            <div className="bg-black text-white p-4 absolute bottom-0 w-full translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <div className="flex justify-between items-center">
+                                    <span className="font-bold">BOLD LOGO TEE</span>
+                                    <span className="font-mono">$35</span>
+                                </div>
+                            </div>
+                        </div>
+                         <div className="group relative cursor-pointer">
+                            <div className="aspect-[3/4] bg-gray-300 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=2864&auto=format&fit=crop" alt="Hat" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                            </div>
+                            <div className="bg-black text-white p-4 absolute bottom-0 w-full translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                <div className="flex justify-between items-center">
+                                    <span className="font-bold">UNAPOLOGETIC SNAPBACK</span>
+                                    <span className="font-mono">$30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    );
+};
+
+const GetInvolved = () => {
+  return (
+    <section id="get-involved" className="bg-black text-white py-24 border-t border-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-6xl md:text-8xl font-black mb-16 text-center leading-none">
+            STOP WATCHING.<br/>
+            <span className="text-red-600">START FIGHTING.</span>
+        </h2>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Stay Informed Column */}
+            <div className="space-y-12">
+                <div className="bg-zinc-900 p-8 border border-zinc-700">
+                    <h3 className="text-3xl font-black mb-4 uppercase">Stay Informed</h3>
+                    <p className="font-mono text-gray-400 mb-6">Get weekly updates on victories, threats, and actions you can take.</p>
+                    <div className="flex flex-col space-y-4">
+                        <input type="email" placeholder="ENTER YOUR EMAIL" className="bg-black border border-white p-4 text-white font-mono placeholder-gray-500 focus:outline-none focus:border-red-600" />
+                        <button className="bg-white text-black py-4 font-black uppercase hover:bg-red-600 hover:text-white transition-colors">
+                            Join The Fight
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 className="text-3xl font-black mb-6 uppercase">Follow The Movement</h3>
+                    <div className="flex gap-4">
+                        <a href="#" className="bg-zinc-900 w-16 h-16 flex items-center justify-center hover:bg-red-600 transition-colors"><Twitter size={28}/></a>
+                        <a href="#" className="bg-zinc-900 w-16 h-16 flex items-center justify-center hover:bg-red-600 transition-colors"><Instagram size={28}/></a>
+                        <a href="#" className="bg-zinc-900 w-16 h-16 flex items-center justify-center hover:bg-red-600 transition-colors"><Linkedin size={28}/></a>
+                    </div>
+                </div>
+            </div>
+
+            {/* Fund The Fight Column */}
+            <div>
+                 <h3 className="text-3xl font-black mb-2 uppercase">Fund The Fight</h3>
+                 <p className="text-xl text-red-500 font-bold italic mb-8">"We don't issue tax receipts. We issue results."</p>
+
+                 {/* Budget Breakdown */}
+                 <div className="space-y-4 mb-12 font-mono text-sm">
+                    {[
+                        { label: "Advocacy Leadership", pct: "36%" },
+                        { label: "Gov Relations", pct: "21%" },
+                        { label: "Direct Action", pct: "20%" },
+                        { label: "Legal Challenges", pct: "10%" },
+                        { label: "Lobbying", pct: "7%" },
+                        { label: "Media Ops", pct: "6%" },
+                    ].map((item, idx) => (
+                        <div key={idx} className="relative pt-1">
+                            <div className="flex mb-2 items-center justify-between">
+                                <span className="text-xs font-semibold inline-block py-1 uppercase rounded-full text-gray-200">
+                                    {item.label}
+                                </span>
+                                <div className="text-right">
+                                    <span className="text-xs font-semibold inline-block text-white">
+                                        {item.pct}
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-zinc-800">
+                                <div style={{ width: item.pct }} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-white"></div>
+                            </div>
+                        </div>
+                    ))}
+                 </div>
+
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                     <button className="bg-red-600 text-white text-xl py-6 font-black uppercase hover:bg-white hover:text-black transition-colors border-2 border-red-600">
+                        Donate Now
+                     </button>
+                     <button className="bg-transparent text-white text-sm py-6 font-bold uppercase hover:bg-white hover:text-black transition-colors border-2 border-white">
+                        Become an Underwriter
+                     </button>
+                 </div>
+                 <div className="mt-8 grid grid-cols-3 gap-2 text-center text-xs font-mono text-gray-500">
+                    <div className="border border-zinc-800 p-2">
+                        <span className="block text-white font-bold text-lg">$100K</span>
+                        Advisory Seat
+                    </div>
+                    <div className="border border-zinc-800 p-2">
+                        <span className="block text-white font-bold text-lg">$50K</span>
+                        Monthly Reports
+                    </div>
+                     <div className="border border-zinc-800 p-2">
+                        <span className="block text-white font-bold text-lg">$25K</span>
+                        Quarterly Updates
+                    </div>
+                 </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Footer = () => {
+  return (
+    <footer className="bg-black text-white pt-16 pb-8 border-t border-zinc-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row justify-between items-start mb-12">
+             <div className="max-w-md mb-8 md:mb-0">
+                <h4 className="text-2xl font-black mb-4 uppercase">Unapologetically Jewish</h4>
+                <p className="font-mono text-gray-400">Fighting the present so our community can build the future.</p>
+             </div>
+             
+             <div className="flex flex-col md:items-end">
+                <a href="mailto:info@unapologeticallyjewish.ca" className="font-mono hover:text-red-500 transition-colors">info@unapologeticallyjewish.ca</a>
+                <a href="mailto:media@unapologeticallyjewish.ca" className="font-mono hover:text-red-500 transition-colors">media@unapologeticallyjewish.ca</a>
+             </div>
+        </div>
+        
+        <div className="border-t border-zinc-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs font-mono text-gray-500">
+            <p className="mb-4 md:mb-0">© 2025 Unapologetically Jewish. We don't apologize for existing.</p>
+            <div className="flex space-x-6">
+                <span>Registered Canadian Non-Profit</span>
+                <span>Lobbying Registration #12842</span>
+            </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+const App = () => {
+  return (
+    <div className="bg-black min-h-screen text-slate-900 font-sans selection:bg-red-600 selection:text-white">
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        h1, h2, h3, h4, h5, h6, button, .font-display {
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        p, span, li, a, input, .font-mono {
+            font-family: 'Courier Prime', monospace;
+        }
+
+        .animate-marquee {
+            animation: marquee 25s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+      `}</style>
+      
+      <Navigation />
+      <Hero />
+      <Mission />
+      <Fighter />
+      <Pillars />
+      <Partners />
+      <MediaMerch />
+      <GetInvolved />
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
