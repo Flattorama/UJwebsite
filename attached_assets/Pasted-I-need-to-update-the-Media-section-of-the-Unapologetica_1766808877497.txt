@@ -1,0 +1,177 @@
+I need to update the "Media" section of the Unapologetically Jewish website with a new set of content. Please follow these instructions carefully to restructure the section and populate it with the data provided below.
+
+1. Structural Changes
+Segment the Media Section: Instead of a single list, divide the media section into three distinct sub-sections with their own headers:
+
+"The Unapologetic Voice" (For Op-Eds and Manifestos authored by the founder).
+
+"In The News" (For third-party press coverage and legal updates).
+
+"Broadcast & Audio" (For radio interviews and podcasts).
+
+Card Layout: Display the items in a responsive grid layout (cards).
+
+Each card should include:
+
+Eyebrow/Category: The Source Name (e.g., "National Post", "CTV News").
+
+Date: Formatted as "Mon DD, YYYY" (e.g., "Nov 11, 2025").
+
+Headline: Bold and prominent.
+
+Summary: A short description (2-3 lines max).
+
+CTA Button: A clear link button (e.g., "Read Article", "Watch Clip").
+
+Video Embedding:
+
+For the "Broadcast & Audio" section and specifically for the CPAC and YouTube links, please implement a video embed or a modal pop-up player so the user can watch directly on the page without leaving. If a direct embed isn't possible for a specific source, fall back to a "Watch Clip" link that opens in a new tab.
+
+2. Content Data to Populate
+Please add the following entries into the new sections:
+
+Section 1: The Unapologetic Voice
+Article 1:
+
+Headline: Two years of inaction have normalized hate crimes in Toronto
+
+Source: National Post
+
+Date: Dec 26, 2025
+
+Summary: A critique of the lack of law enforcement response to the "Mezuzah thefts" and rising antisemitism.
+
+URL: https://nationalpost.com/opinion/matthew-taub-two-years-of-inaction-have-normalized-hate-crimes-in-toronto
+
+CTA: Read Article
+
+Article 2:
+
+Headline: Mob that attacked Jewish students must be held accountable
+
+Source: National Post
+
+Date: Nov 11, 2025
+
+Summary: The "Attempted Pogrom" op-ed demanding accountability for the violence at TMU and criticizing Mayor Chow's silence.
+
+URL: https://nationalpost.com/opinion/mob-that-attacked-jewish-students-must-be-held-accountable
+
+CTA: Read Article
+
+Article 3:
+
+Headline: Proud, Uncancelable, and Unapologetically Jewish
+
+Source: The Algemeiner
+
+Date: Aug 6, 2025
+
+Summary: The "Manifesto" piece defining the organization's philosophy: refusing to apologize for Zionist identity.
+
+URL: https://www.algemeiner.com/2025/08/06/proud-uncancelable-and-unapologetically-jewish-the-power-of-community-culture-over-cancel-culture/
+
+CTA: Read Article
+
+Section 2: In The News
+Article 1 (Video):
+
+Headline: Founder of "Unapologetically Jewish" holds news conference
+
+Source: CPAC / YouTube
+
+Date: Oct 6, 2025
+
+Summary: Full footage of the Ottawa press conference announcing the Human Rights Tribunal filings.
+
+URL: https://www.youtube.com/watch?v=BujNAll5hnc
+
+CTA: Watch Clip
+
+Article 2:
+
+Headline: Unapologetically Jewish Sues City Of Toronto And Police
+
+Source: TheJ.ca
+
+Date: Nov 4, 2025
+
+Summary: Detailed breakdown of the lawsuit alleging a "failure to protect" Jewish citizens and "two-tier policing."
+
+URL: https://thej.ca/2025/11/04/unapologetically-jewish-sues-city-of-toronto-and-police-over-alleged-failure-to-protect-jews/
+
+CTA: Read Article
+
+Article 3:
+
+Headline: Suspected hate-motivated investigation: Jewish prayer scrolls stolen
+
+Source: CTV News
+
+Date: Dec 8, 2025
+
+Summary: Reporting on the North York Mezuzah thefts, featuring Taub's defense of the targeted Jewish seniors.
+
+URL: https://www.ctvnews.ca/toronto/local/article/suspected-hate-motivated-investigation-underway-after-about-20-jewish-prayer-scrolls-stolen-from-homes-in-north-york-toronto-police/
+
+CTA: Read Article
+
+Article 4:
+
+Headline: Unapologetically Jewish Files Human Rights Complaints
+
+Source: Financial Post
+
+Date: Oct 7, 2025
+
+Summary: National coverage confirming the organization's shift from "advocacy to formal legal pressure."
+
+URL: https://financialpost.com/pmn/business-wire-news-releases-pmn/unapologetically-jewish-org-files-human-rights-complaints-against-cities-of-montreal-and-toronto
+
+CTA: Read Article
+
+Article 5:
+
+Headline: TIFF screening of Oct. 7 documentary brings protests
+
+Source: CBC News
+
+Date: Sept 10, 2025
+
+Summary: Taub provides the counter-narrative from inside Roy Thomson Hall during the The Road Between Us premiere.
+
+URL: https://www.cbc.ca/news/entertainment/tiff-screening-of-oct-7-documentary-brings-protests-and-a-standing-ovation-for-its-director-1.7630307
+
+CTA: Read Article
+
+Section 3: Broadcast & Audio
+Item 1 (Audio):
+
+Headline: People shouldn't become victims because Police want to de-escalate
+
+Source: Newstalk 1010
+
+Date: Oct 7, 2025
+
+Summary: Radio interview arguing that "de-escalation" policies are effectively victimizing the Jewish community.
+
+URL: https://omny.fm/shows/newstalk1010/people-shouldnt-become-victims-because-police-want-to-de-escalate-matthew-taub-with-unapologetically-jewish-tells-mooreintheam-how-the-grassroots-organization-is-suing-the-city-and-police-in-toronto-and-montreal-for-failing-to-protect-jewish-canadians
+
+CTA: Listen Now
+
+Item 2 (Podcast):
+
+Headline: RiseUP: A year in the making with Matthew Taub
+
+Source: RiseUP Podcast
+
+Date: Dec 10, 2025
+
+Summary: Matthew Taub reflects on his 1-year anniversary of activism and the link between recovery and resilience.
+
+URL: https://podcasts.apple.com/us/podcast/riseup-stories-of-recovery-resilience-and-renewal/id1658932950
+
+CTA: Listen Now
+
+3. Design Note
+Ensure the design matches the existing "Unapologetically Jewish" branding (Bold fonts, Black/White color scheme with Red accents if applicable).
