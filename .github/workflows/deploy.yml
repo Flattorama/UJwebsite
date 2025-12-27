@@ -34,8 +34,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Your vite config outputs to 'dist/public'
-          path: ./dist/public
+          path: dist   # Remove '/public'
 
   deploy:
     environment:
