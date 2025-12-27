@@ -24,7 +24,7 @@ export default function Mission() {
             >
               We empower Jews to stand proud, speak boldly, and live safely.{' '}
               <span className="font-black">Unapologetically Jewish</span> combats antisemitism 
-              through grassroots organizing, legal advocacy, and direct action — building a Canada 
+              through grassroots organizing, legal advocacy, and direct action, building a Canada 
               where Jewish identity is celebrated, not silenced.
             </p>
           </div>
@@ -43,9 +43,8 @@ export default function Mission() {
               className="text-base sm:text-lg md:text-2xl font-mono text-gray-800 relative z-10"
               data-testid="text-vision-content"
             >
-              A Canada where Jews live without fear. Where our heritage is honored without shame. 
-              Where standing up for Jewish lives isn't courage —{' '}
-              <span className="bg-black text-white px-2">it's just being who we are.</span>
+              A Canada where Jews live openly, safely, and proudly —{' '}
+              <span className="bg-black text-white px-2">without fear, apology, or permission.</span>
             </p>
           </div>
         </div>

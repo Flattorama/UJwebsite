@@ -1,11 +1,9 @@
-import { Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
+import { Twitter, Instagram } from 'lucide-react';
 import ujLogo from '@assets/uj-logo.svg';
 
 const socialLinks = [
-  { icon: Twitter, label: 'Twitter', href: '#' },
-  { icon: Instagram, label: 'Instagram', href: '#' },
-  { icon: Linkedin, label: 'LinkedIn', href: '#' },
-  { icon: Youtube, label: 'YouTube', href: '#' },
+  { icon: Twitter, label: 'X', href: 'https://x.com/_UJewishOrg' },
+  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/unapologetically.jewish/' },
 ];
 
 const quickLinks = [
@@ -54,13 +52,11 @@ export default function Footer() {
                   <a
                     key={index}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 border border-white/30 flex items-center justify-center hover:bg-white hover:text-black transition-colors"
                     aria-label={social.label}
                     data-testid={`link-footer-${social.label.toLowerCase()}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      console.log(`Opening ${social.label}`);
-                    }}
                   >
                     <IconComponent size={18} />
                   </a>

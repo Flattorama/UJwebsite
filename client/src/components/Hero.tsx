@@ -25,12 +25,11 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center pt-20 md:pt-24">
         <h1 
-          className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white leading-none tracking-tighter mb-6 select-none uppercase"
+          className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white leading-none tracking-tighter mb-6 select-none"
           data-testid="text-hero-heading"
         >
-          We Don't Ask<br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">Permission</span><br />
-          To Exist.
+          UNAPOLOGETICALLY<br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">jEWISH</span>
         </h1>
         <p 
           className="max-w-2xl text-lg md:text-xl text-gray-300 font-mono mb-10 tracking-wide border-l-4 border-red-600 pl-4 text-left"

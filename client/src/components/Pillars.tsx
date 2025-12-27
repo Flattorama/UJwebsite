@@ -9,7 +9,7 @@ const pillars = [
   {
     icon: Shield,
     title: 'LAW ENFORCEMENT & LEGAL',
-    desc: "Collaboration first. Accountability always. From hate crime training to Charter challenges — ensuring Jewish safety isn't negotiable.",
+    desc: "Collaboration first. Accountability always. From hate crime training to Charter challenges, ensuring Jewish safety isn't negotiable.",
   },
   {
     icon: Mic,
