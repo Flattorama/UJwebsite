@@ -30,14 +30,6 @@ const unapologeticVoice: MediaItem[] = [
     url: 'https://nationalpost.com/opinion/mob-that-attacked-jewish-students-must-be-held-accountable',
     cta: 'Read Article',
   },
-  {
-    headline: 'Proud, Uncancelable, and Unapologetically Jewish',
-    source: 'The Algemeiner',
-    date: 'Aug 6, 2025',
-    summary: 'The "Manifesto" piece defining the organization\'s philosophy: refusing to apologize for Zionist identity.',
-    url: 'https://www.algemeiner.com/2025/08/06/proud-uncancelable-and-unapologetically-jewish-the-power-of-community-culture-over-cancel-culture/',
-    cta: 'Read Article',
-  },
 ];
 
 const inTheNews: MediaItem[] = [
