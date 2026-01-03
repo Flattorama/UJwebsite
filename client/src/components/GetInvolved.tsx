@@ -1,8 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useMutation } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'dbox-widget': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & {
+        campaign?: string;
+        type?: string;
+        'enable-auto-scroll'?: string;
+      }, HTMLElement>;
+    }
+  }
+}
 
 export default function GetInvolved() {
   const { toast } = useToast();
@@ -10,6 +22,18 @@ export default function GetInvolved() {
   const [name, setName] = useState('');
   const [volunteerEmail, setVolunteerEmail] = useState('');
   const [selectedRole, setSelectedRole] = useState('');
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://donorbox.org/widgets.js';
+    script.type = 'module';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const newsletterMutation = useMutation({
     mutationFn: async (data: { email: string }) => {
@@ -192,46 +216,12 @@ export default function GetInvolved() {
           </div>
 
           <div className="flex flex-col justify-center">
-            <div className="bg-white text-black p-6 sm:p-10 text-center">
-              <h3 className="text-3xl sm:text-5xl font-black mb-6 uppercase tracking-tighter">
-                Fund the Fight
-              </h3>
-              <p className="text-base sm:text-lg mb-8 max-w-md mx-auto">
-                Your donation directly supports legal action, media campaigns, and 
-                training the next generation of advocates.
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
-                {['$18', '$36', '$180', '$360'].map((amount) => (
-                  <button
-                    key={amount}
-                    className="border-4 border-black py-3 sm:py-4 font-black text-lg sm:text-xl hover:bg-black hover:text-white transition-colors"
-                    data-testid={`button-donate-${amount.replace('$', '')}`}
-                    onClick={() => {
-                      toast({
-                        title: `${amount} Selected`,
-                        description: 'Donation processing coming soon!',
-                      });
-                    }}
-                  >
-                    {amount}
-                  </button>
-                ))}
-              </div>
-              <button 
-                className="w-full bg-black text-white py-4 sm:py-6 text-xl sm:text-2xl font-black hover:bg-red-600 transition-colors"
-                data-testid="button-donate-custom"
-                onClick={() => {
-                  toast({
-                    title: 'Custom Donation',
-                    description: 'Donation processing coming soon!',
-                  });
-                }}
-              >
-                DONATE NOW
-              </button>
-              <p className="mt-4 text-sm font-mono text-gray-600">
-                Tax receipts issued for donations over $20
-              </p>
+            <div className="bg-white text-black p-4 sm:p-6" data-testid="donorbox-container">
+              <dbox-widget 
+                campaign="unapologetically-jewish-founders-campaign" 
+                type="donation_form" 
+                enable-auto-scroll="true"
+              />
             </div>
 
             <div className="mt-8 p-6 border border-white/20 text-center">
