@@ -1,9 +1,12 @@
-import { Twitter, Instagram } from 'lucide-react';
+import { Instagram } from 'lucide-react';
+import { SiX, SiYoutube, SiSubstack } from 'react-icons/si';
 import ujLogo from '@assets/uj-logo.svg';
 
 const socialLinks = [
-  { icon: Twitter, label: 'X', href: 'https://x.com/_UJewishOrg' },
+  { icon: SiX, label: 'X', href: 'https://x.com/_UJewishOrg' },
   { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/unapologetically.jewish/' },
+  { icon: SiYoutube, label: 'YouTube', href: 'https://www.youtube.com/@unapologeticallyjewishorg' },
+  { icon: SiSubstack, label: 'Substack', href: 'https://unapologeticallyjewishorg.substack.com/' },
 ];
 
 const quickLinks = [
