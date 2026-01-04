@@ -4,6 +4,7 @@ export default function Fighter() {
   const trackRecord = [
     'Secured arrests of Razaali Awan Bahudar and multiple threat actors.',
     'Exposed officers with extremist connections, triggering internal investigations.',
+    'Charged human rights violations against the City of Toronto (including the mayor), Chief of Police and the Toronto Police Services Board.',
     'Forced Toronto Police to implement new social media protocols.',
     'Built direct access to federal ministers and provincial leadership.',
   ];

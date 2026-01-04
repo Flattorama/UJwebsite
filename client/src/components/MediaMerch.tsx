@@ -87,15 +87,6 @@ const broadcastAudio: MediaItem[] = [
     cta: 'Listen Now',
     isAudio: true,
   },
-  {
-    headline: 'RiseUP: A year in the making with Matthew Taub',
-    source: 'RiseUP Podcast',
-    date: 'Dec 10, 2025',
-    summary: 'Matthew Taub reflects on his 1-year anniversary of activism and the link between recovery and resilience.',
-    url: 'https://podcasts.apple.com/us/podcast/riseup-stories-of-recovery-resilience-and-renewal/id1658932950',
-    cta: 'Listen Now',
-    isAudio: true,
-  },
 ];
 
 

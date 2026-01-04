@@ -12,7 +12,7 @@ export default function Partners() {
   return (
     <section 
       id="partners" 
-      className="py-6 sm:py-12 bg-red-600 overflow-hidden"
+      className="py-2 sm:py-3 bg-red-600 overflow-hidden"
       data-testid="section-partners"
     >
       <div className="relative flex overflow-x-hidden">
@@ -20,7 +20,7 @@ export default function Partners() {
           {messages.map((msg, index) => (
             <span 
               key={index}
-              className={`text-2xl sm:text-4xl md:text-6xl font-black px-4 sm:px-8 ${msg.color}`}
+              className={`text-base sm:text-xl md:text-2xl font-black px-3 sm:px-6 ${msg.color}`}
             >
               {msg.text}
             </span>
@@ -28,7 +28,7 @@ export default function Partners() {
           {messages.map((msg, index) => (
             <span 
               key={`dup-${index}`}
-              className={`text-2xl sm:text-4xl md:text-6xl font-black px-4 sm:px-8 ${msg.color}`}
+              className={`text-base sm:text-xl md:text-2xl font-black px-3 sm:px-6 ${msg.color}`}
             >
               {msg.text}
             </span>
