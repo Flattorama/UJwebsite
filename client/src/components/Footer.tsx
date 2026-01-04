@@ -132,17 +132,6 @@ export default function Footer() {
             >
               Terms of Service
             </a>
-            <a 
-              href="#" 
-              className="hover:text-white transition-colors"
-              onClick={(e) => {
-                e.preventDefault();
-                console.log('Opening charitable info');
-              }}
-              data-testid="link-footer-charity"
-            >
-              Charitable Status
-            </a>
           </div>
         </div>
       </div>
