@@ -248,11 +248,11 @@ export default function GetInvolved() {
                 FOR CORPORATE OR MAJOR GIFTS
               </p>
               <a 
-                href="mailto:partnerships@unapologeticallyjewish.ca" 
+                href="mailto:info@unapologetically-jewish.org" 
                 className="text-white font-bold underline decoration-2 hover:text-red-500 transition-colors"
                 data-testid="link-partnerships-email"
               >
-                partnerships@unapologeticallyjewish.ca
+                info@unapologetically-jewish.org
               </a>
             </div>
           </div>

@@ -93,33 +93,12 @@ export default function Footer() {
             <h4 className="font-black text-lg mb-4 uppercase">Contact</h4>
             <div className="space-y-3 font-mono text-gray-400 text-sm">
               <p>
-                <span className="text-white">General:</span><br/>
                 <a 
-                  href="mailto:info@unapologeticallyjewish.ca" 
+                  href="mailto:info@unapologetically-jewish.org" 
                   className="hover:text-white transition-colors"
                   data-testid="link-footer-email-general"
                 >
-                  info@unapologeticallyjewish.ca
-                </a>
-              </p>
-              <p>
-                <span className="text-white">Press:</span><br/>
-                <a 
-                  href="mailto:media@unapologeticallyjewish.ca" 
-                  className="hover:text-white transition-colors"
-                  data-testid="link-footer-email-press"
-                >
-                  media@unapologeticallyjewish.ca
-                </a>
-              </p>
-              <p>
-                <span className="text-white">Report Incident:</span><br/>
-                <a 
-                  href="mailto:report@unapologeticallyjewish.ca" 
-                  className="hover:text-white transition-colors"
-                  data-testid="link-footer-email-report"
-                >
-                  report@unapologeticallyjewish.ca
+                  info@unapologetically-jewish.org
                 </a>
               </p>
             </div>
