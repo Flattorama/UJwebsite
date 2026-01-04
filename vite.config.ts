@@ -8,8 +8,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  // 1. Keeps your repository name for GitHub Pages
-  base: "/UJwebsite/",
+  // 1. CONDITIONAL BASE PATH (The Fix):
+  // Checks if we are building inside GitHub Actions.
+  // If yes, use the repo name "/UJwebsite/".
+  // If no (like in Replit), use the root "/".
+  base: process.env.GITHUB_ACTIONS === "true" ? "/UJwebsite/" : "/",
 
   // 2. Uses standard React plugin (Replit plugins removed)
   plugins: [react()],
