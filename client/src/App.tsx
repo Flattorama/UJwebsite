@@ -7,10 +7,17 @@ import Home from "@/pages/Home";
 import NotFound from "@/pages/not-found";
 
 function AppRoutes() {
+  // 1. Get the base URL from Vite config
+  // This will be "/" on Replit and "/UJwebsite/" on GitHub
+  const base = import.meta.env.BASE_URL;
+
+  // 2. Remove the trailing slash for wouter compatibility if necessary
+  // (wouter often prefers "/UJwebsite" over "/UJwebsite/")
+  const routerBase = base === "/" ? "" : base.replace(/\/$/, "");
+
   return (
-    // We add the Router wrapper here with the base prop.
-    // This tells wouter to ignore "/UJwebsite" in the URL.
-    <Router base="/UJwebsite">
+    // 3. Use the dynamic routerBase instead of the hardcoded string
+    <Router base={routerBase}>
       <Switch>
         <Route path="/" component={Home} />
         <Route component={NotFound} />
