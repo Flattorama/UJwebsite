@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ExternalLink, Play, X, Headphones } from 'lucide-react';
 
 interface MediaItem {
@@ -98,23 +98,6 @@ const broadcastAudio: MediaItem[] = [
   },
 ];
 
-const merchItems = [
-  {
-    name: 'STREET FIGHTER HOODIE',
-    price: '$65',
-    image: 'https://images.unsplash.com/photo-1576871337622-98d48d1cf531?q=80&w=2787&auto=format&fit=crop',
-  },
-  {
-    name: 'BOLD LOGO TEE',
-    price: '$35',
-    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2000&auto=format&fit=crop',
-  },
-  {
-    name: 'UNAPOLOGETIC SNAPBACK',
-    price: '$30',
-    image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?q=80&w=2864&auto=format&fit=crop',
-  },
-];
 
 function MediaCard({ item, index, onVideoClick }: { item: MediaItem; index: number; onVideoClick?: (youtubeId: string) => void }) {
   const handleClick = () => {
@@ -183,6 +166,245 @@ function VideoModal({ youtubeId, onClose }: { youtubeId: string; onClose: () => 
 
 export default function MediaMerch() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const shopifyInitialized = useRef(false);
+
+  useEffect(() => {
+    if (shopifyInitialized.current) {
+      return;
+    }
+
+    const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+    
+    function ShopifyBuyInit() {
+      const node = document.getElementById('collection-component-1767484934888');
+      if (!node) {
+        return;
+      }
+      
+      if (node.hasChildNodes()) {
+        shopifyInitialized.current = true;
+        return;
+      }
+
+      const client = (window as any).ShopifyBuy.buildClient({
+        domain: 'aa87d1-ac.myshopify.com',
+        storefrontAccessToken: '121ee174ed0bc82f47a2b669ca6f6a5f',
+      });
+      
+      (window as any).ShopifyBuy.UI.onReady(client).then(function (ui: any) {
+        ui.createComponent('collection', {
+          id: '286621204574',
+          node: node,
+          moneyFormat: '%24%7B%7Bamount%7D%7D',
+          options: {
+            "product": {
+              "styles": {
+                "product": {
+                  "@media (min-width: 601px)": {
+                    "max-width": "calc(50% - 40px)",
+                    "margin-left": "40px",
+                    "margin-bottom": "50px",
+                    "width": "calc(50% - 40px)"
+                  },
+                  "img": {
+                    "height": "calc(100% - 15px)",
+                    "position": "absolute",
+                    "left": "0",
+                    "right": "0",
+                    "top": "0"
+                  },
+                  "imgWrapper": {
+                    "padding-top": "calc(75% + 15px)",
+                    "position": "relative",
+                    "height": "0"
+                  }
+                },
+                "title": {
+                  "font-size": "20px",
+                  "color": "#000000"
+                },
+                "button": {
+                  "font-weight": "bold",
+                  "font-size": "14px",
+                  "padding-top": "15px",
+                  "padding-bottom": "15px",
+                  ":hover": {
+                    "background-color": "#c62222"
+                  },
+                  "background-color": "#dc2626",
+                  ":focus": {
+                    "background-color": "#c62222"
+                  },
+                  "border-radius": "0px",
+                  "padding-left": "100px",
+                  "padding-right": "100px"
+                },
+                "quantityInput": {
+                  "font-size": "14px",
+                  "padding-top": "15px",
+                  "padding-bottom": "15px"
+                },
+                "price": {
+                  "font-size": "16px",
+                  "color": "#000000"
+                },
+                "compareAt": {
+                  "font-size": "13.6px",
+                  "color": "#000000"
+                },
+                "unitPrice": {
+                  "font-size": "13.6px",
+                  "color": "#000000"
+                }
+              },
+              "buttonDestination": "checkout",
+              "text": {
+                "button": "Buy now"
+              }
+            },
+            "productSet": {
+              "styles": {
+                "products": {
+                  "@media (min-width: 601px)": {
+                    "margin-left": "-40px"
+                  }
+                }
+              }
+            },
+            "modalProduct": {
+              "contents": {
+                "img": false,
+                "imgWithCarousel": true,
+                "button": false,
+                "buttonWithQuantity": true
+              },
+              "styles": {
+                "product": {
+                  "@media (min-width: 601px)": {
+                    "max-width": "100%",
+                    "margin-left": "0px",
+                    "margin-bottom": "0px"
+                  }
+                },
+                "button": {
+                  "font-weight": "bold",
+                  "font-size": "14px",
+                  "padding-top": "15px",
+                  "padding-bottom": "15px",
+                  ":hover": {
+                    "background-color": "#c62222"
+                  },
+                  "background-color": "#dc2626",
+                  ":focus": {
+                    "background-color": "#c62222"
+                  },
+                  "border-radius": "0px",
+                  "padding-left": "100px",
+                  "padding-right": "100px"
+                },
+                "quantityInput": {
+                  "font-size": "14px",
+                  "padding-top": "15px",
+                  "padding-bottom": "15px"
+                },
+                "title": {
+                  "font-family": "Helvetica Neue, sans-serif",
+                  "font-weight": "bold",
+                  "font-size": "26px",
+                  "color": "#4c4c4c"
+                },
+                "price": {
+                  "font-family": "Helvetica Neue, sans-serif",
+                  "font-weight": "normal",
+                  "font-size": "18px",
+                  "color": "#4c4c4c"
+                },
+                "compareAt": {
+                  "font-family": "Helvetica Neue, sans-serif",
+                  "font-weight": "normal",
+                  "font-size": "15.299999999999999px",
+                  "color": "#4c4c4c"
+                },
+                "unitPrice": {
+                  "font-family": "Helvetica Neue, sans-serif",
+                  "font-weight": "normal",
+                  "font-size": "15.299999999999999px",
+                  "color": "#4c4c4c"
+                }
+              },
+              "text": {
+                "button": "Add to cart"
+              }
+            },
+            "option": {},
+            "cart": {
+              "styles": {
+                "button": {
+                  "font-weight": "bold",
+                  "font-size": "14px",
+                  "padding-top": "15px",
+                  "padding-bottom": "15px",
+                  ":hover": {
+                    "background-color": "#c62222"
+                  },
+                  "background-color": "#dc2626",
+                  ":focus": {
+                    "background-color": "#c62222"
+                  },
+                  "border-radius": "0px"
+                }
+              },
+              "text": {
+                "total": "Subtotal",
+                "button": "Checkout"
+              }
+            },
+            "toggle": {
+              "styles": {
+                "toggle": {
+                  "font-weight": "bold",
+                  "background-color": "#dc2626",
+                  ":hover": {
+                    "background-color": "#c62222"
+                  },
+                  ":focus": {
+                    "background-color": "#c62222"
+                  }
+                },
+                "count": {
+                  "font-size": "14px"
+                }
+              }
+            }
+          },
+        });
+        shopifyInitialized.current = true;
+      });
+    }
+
+    if ((window as any).ShopifyBuy) {
+      if ((window as any).ShopifyBuy.UI) {
+        ShopifyBuyInit();
+      } else {
+        loadScript();
+      }
+    } else {
+      loadScript();
+    }
+
+    function loadScript() {
+      const existingScript = document.querySelector(`script[src="${scriptURL}"]`);
+      if (existingScript) {
+        ShopifyBuyInit();
+        return;
+      }
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = scriptURL;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+      script.onload = ShopifyBuyInit;
+    }
+  }, []);
 
   return (
     <section id="media" className="bg-white" data-testid="section-media">
@@ -261,31 +483,7 @@ export default function MediaMerch() {
             Every logo worn is a declaration: We're here. We're proud. We're not going anywhere.
           </p>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
-            {merchItems.map((item, index) => (
-              <div 
-                key={index} 
-                className="group relative cursor-pointer"
-                data-testid={`card-merch-${index}`}
-                onClick={() => console.log(`Viewing: ${item.name}`)}
-              >
-                <div className="aspect-[3/4] bg-gray-300 relative overflow-hidden">
-                  <img 
-                    src={item.image} 
-                    alt={item.name} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" 
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
-                </div>
-                <div className="bg-black text-white p-4 absolute bottom-0 w-full translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                  <div className="flex justify-between items-center gap-2">
-                    <span className="font-bold text-sm sm:text-base truncate">{item.name}</span>
-                    <span className="font-mono flex-shrink-0">{item.price}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <div id="collection-component-1767484934888" data-testid="shopify-collection"></div>
         </div>
       </section>
 
