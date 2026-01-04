@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { useMutation } from '@tanstack/react-query';
-import { apiRequest } from '@/lib/queryClient';
 
 declare global {
   namespace JSX {
@@ -16,12 +14,19 @@ declare global {
   }
 }
 
+const FORMSUBMIT_URL = 'https://formsubmit.co/ajax/Info@Unapologetically-Jewish.org';
+
 export default function GetInvolved() {
   const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [volunteerEmail, setVolunteerEmail] = useState('');
   const [selectedRole, setSelectedRole] = useState('');
+  
+  const [newsletterSubmitting, setNewsletterSubmitting] = useState(false);
+  const [newsletterSuccess, setNewsletterSuccess] = useState(false);
+  const [volunteerSubmitting, setVolunteerSubmitting] = useState(false);
+  const [volunteerSuccess, setVolunteerSuccess] = useState(false);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -35,79 +40,79 @@ export default function GetInvolved() {
     };
   }, []);
 
-  const newsletterMutation = useMutation({
-    mutationFn: async (data: { email: string }) => {
-      const response = await apiRequest('POST', '/api/newsletter/subscribe', data);
-      return response.json();
-    },
-    onSuccess: (data) => {
-      toast({
-        title: 'Subscribed!',
-        description: data.message || 'You will receive weekly updates on our fight.',
-      });
-      setEmail('');
-    },
-    onError: async (error: any) => {
-      let message = 'Failed to subscribe. Please try again.';
-      if (error.response) {
-        try {
-          const data = await error.response.json();
-          message = data.message || message;
-        } catch {}
-      }
-      toast({
-        title: 'Error',
-        description: message,
-        variant: 'destructive',
-      });
-    },
-  });
-
-  const volunteerMutation = useMutation({
-    mutationFn: async (data: { name: string; email: string; role: string }) => {
-      const response = await apiRequest('POST', '/api/volunteer/apply', data);
-      return response.json();
-    },
-    onSuccess: (data) => {
-      toast({
-        title: 'Application Received!',
-        description: data.message || "We'll be in touch about volunteer opportunities.",
-      });
-      setName('');
-      setVolunteerEmail('');
-      setSelectedRole('');
-    },
-    onError: async (error: any) => {
-      let message = 'Failed to submit application. Please try again.';
-      if (error.response) {
-        try {
-          const data = await error.response.json();
-          message = data.message || message;
-        } catch {}
-      }
-      toast({
-        title: 'Error',
-        description: message,
-        variant: 'destructive',
-      });
-    },
-  });
-
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      newsletterMutation.mutate({ email });
+    if (!email) return;
+    
+    setNewsletterSubmitting(true);
+    try {
+      const response = await fetch(FORMSUBMIT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: 'New Newsletter Subscription',
+          email: email,
+          formType: 'Newsletter Subscription'
+        })
+      });
+      
+      if (response.ok) {
+        setNewsletterSuccess(true);
+        setEmail('');
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Failed to subscribe. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setNewsletterSubmitting(false);
     }
   };
 
-  const handleVolunteerSubmit = (e: React.FormEvent) => {
+  const handleVolunteerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (name && volunteerEmail && selectedRole) {
-      volunteerMutation.mutate({ 
-        name, 
-        email: volunteerEmail, 
-        role: selectedRole 
+    if (!name || !volunteerEmail || !selectedRole) return;
+    
+    setVolunteerSubmitting(true);
+    try {
+      const response = await fetch(FORMSUBMIT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: 'New Volunteer Application',
+          name: name,
+          email: volunteerEmail,
+          role: selectedRole,
+          formType: 'Volunteer Application'
+        })
       });
+      
+      if (response.ok) {
+        setVolunteerSuccess(true);
+        setName('');
+        setVolunteerEmail('');
+        setSelectedRole('');
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Failed to submit application. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setVolunteerSubmitting(false);
     }
   };
 
@@ -141,27 +146,34 @@ export default function GetInvolved() {
               <p className="font-mono text-gray-400 mb-6">
                 Get weekly updates on victories, threats, and actions you can take.
               </p>
-              <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="flex-1 bg-black border-2 border-white px-4 py-3 font-mono text-white placeholder-gray-500 focus:outline-none focus:border-red-600"
-                  data-testid="input-newsletter-email"
-                  required
-                  disabled={newsletterMutation.isPending}
-                />
-                <button 
-                  type="submit"
-                  className="bg-white text-black px-6 py-3 font-black hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                  data-testid="button-newsletter-submit"
-                  disabled={newsletterMutation.isPending}
-                >
-                  {newsletterMutation.isPending ? 'SUBSCRIBING...' : 'SUBSCRIBE'}
-                  {!newsletterMutation.isPending && <ArrowRight size={18} />}
-                </button>
-              </form>
+              {newsletterSuccess ? (
+                <div className="flex items-center gap-3 text-green-400" data-testid="newsletter-success">
+                  <CheckCircle size={24} />
+                  <span className="font-mono">You're subscribed! Check your inbox for updates.</span>
+                </div>
+              ) : (
+                <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    className="flex-1 bg-black border-2 border-white px-4 py-3 font-mono text-white placeholder-gray-500 focus:outline-none focus:border-red-600"
+                    data-testid="input-newsletter-email"
+                    required
+                    disabled={newsletterSubmitting}
+                  />
+                  <button 
+                    type="submit"
+                    className="bg-white text-black px-6 py-3 font-black hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                    data-testid="button-newsletter-submit"
+                    disabled={newsletterSubmitting}
+                  >
+                    {newsletterSubmitting ? 'SUBSCRIBING...' : 'SUBSCRIBE'}
+                    {!newsletterSubmitting && <ArrowRight size={18} />}
+                  </button>
+                </form>
+              )}
             </div>
 
             <div className="bg-zinc-900 p-6 sm:p-8 border border-zinc-700">
@@ -169,49 +181,56 @@ export default function GetInvolved() {
               <p className="font-mono text-gray-400 mb-6">
                 Join our network of trained advocates. We'll equip you to fight.
               </p>
-              <form onSubmit={handleVolunteerSubmit} className="space-y-4">
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Your name"
-                  className="w-full bg-black border-2 border-white px-4 py-3 font-mono text-white placeholder-gray-500 focus:outline-none focus:border-red-600"
-                  data-testid="input-volunteer-name"
-                  required
-                  disabled={volunteerMutation.isPending}
-                />
-                <input
-                  type="email"
-                  value={volunteerEmail}
-                  onChange={(e) => setVolunteerEmail(e.target.value)}
-                  placeholder="Your email"
-                  className="w-full bg-black border-2 border-white px-4 py-3 font-mono text-white placeholder-gray-500 focus:outline-none focus:border-red-600"
-                  data-testid="input-volunteer-email"
-                  required
-                  disabled={volunteerMutation.isPending}
-                />
-                <select
-                  value={selectedRole}
-                  onChange={(e) => setSelectedRole(e.target.value)}
-                  className="w-full bg-black border-2 border-white px-4 py-3 font-mono text-white focus:outline-none focus:border-red-600 appearance-none cursor-pointer disabled:opacity-50"
-                  data-testid="select-volunteer-role"
-                  required
-                  disabled={volunteerMutation.isPending}
-                >
-                  <option value="" disabled>Select your interest</option>
-                  {roles.map((role) => (
-                    <option key={role} value={role}>{role}</option>
-                  ))}
-                </select>
-                <button 
-                  type="submit"
-                  className="w-full bg-red-600 text-white py-4 font-black text-lg hover:bg-white hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                  data-testid="button-volunteer-submit"
-                  disabled={volunteerMutation.isPending}
-                >
-                  {volunteerMutation.isPending ? 'SUBMITTING...' : 'JOIN THE MOVEMENT'}
-                </button>
-              </form>
+              {volunteerSuccess ? (
+                <div className="flex items-center gap-3 text-green-400" data-testid="volunteer-success">
+                  <CheckCircle size={24} />
+                  <span className="font-mono">Application received! We'll be in touch soon.</span>
+                </div>
+              ) : (
+                <form onSubmit={handleVolunteerSubmit} className="space-y-4">
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                    className="w-full bg-black border-2 border-white px-4 py-3 font-mono text-white placeholder-gray-500 focus:outline-none focus:border-red-600"
+                    data-testid="input-volunteer-name"
+                    required
+                    disabled={volunteerSubmitting}
+                  />
+                  <input
+                    type="email"
+                    value={volunteerEmail}
+                    onChange={(e) => setVolunteerEmail(e.target.value)}
+                    placeholder="Your email"
+                    className="w-full bg-black border-2 border-white px-4 py-3 font-mono text-white placeholder-gray-500 focus:outline-none focus:border-red-600"
+                    data-testid="input-volunteer-email"
+                    required
+                    disabled={volunteerSubmitting}
+                  />
+                  <select
+                    value={selectedRole}
+                    onChange={(e) => setSelectedRole(e.target.value)}
+                    className="w-full bg-black border-2 border-white px-4 py-3 font-mono text-white focus:outline-none focus:border-red-600 appearance-none cursor-pointer disabled:opacity-50"
+                    data-testid="select-volunteer-role"
+                    required
+                    disabled={volunteerSubmitting}
+                  >
+                    <option value="" disabled>Select your interest</option>
+                    {roles.map((role) => (
+                      <option key={role} value={role}>{role}</option>
+                    ))}
+                  </select>
+                  <button 
+                    type="submit"
+                    className="w-full bg-red-600 text-white py-4 font-black text-lg hover:bg-white hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    data-testid="button-volunteer-submit"
+                    disabled={volunteerSubmitting}
+                  >
+                    {volunteerSubmitting ? 'SUBMITTING...' : 'JOIN THE MOVEMENT'}
+                  </button>
+                </form>
+              )}
             </div>
           </div>
 
