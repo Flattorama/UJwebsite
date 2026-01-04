@@ -7,16 +7,21 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  // Conditional base path
+  // 1. Conditional base path (GitHub vs Replit)
   base: process.env.GITHUB_ACTIONS === "true" ? "/UJwebsite/" : "/",
-  
+
   plugins: [react()],
-  
-  // 1. ADD THIS SERVER BLOCK
+
+  // 2. CRITICAL FIX: Server Configuration
   server: {
-    host: "0.0.0.0", // vital for Replit to "see" the app
-    port: 5173,      // explicitly set port (optional but good practice)
-    allowedHosts: true, // Skips host checks that can block Replit previews
+    host: "0.0.0.0", // Allows Replit preview to connect
+    port: 5173,      // Standard Vite port
+    allowedHosts: true, // Bypasses host checking
+    fs: {
+      // Allows importing files from outside the 'client' folder 
+      // (Fixes the attached_assets 404 errors)
+      allow: ['..'], 
+    },
   },
 
   resolve: {
